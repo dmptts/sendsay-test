@@ -13,8 +13,14 @@ const canvasSlice = createSlice({
   name: 'canvas',
   initialState,
   reducers: {
-    addElement: (state, action) => {
+    pushElement: (state, action) => {
       state.elements.push(action.payload);
+    },
+    insertElement: (state, action) => {
+      state.elements.splice(action.payload.targetIndex, 0, action.payload.item);
+    },
+    removeElement: (state, action) => {
+      state.elements.splice(action.payload, 1);
     },
     reorder: (state, action) => {
       const tmp = state.elements[action.payload.draggedIndex];
@@ -25,4 +31,5 @@ const canvasSlice = createSlice({
 });
 
 export default canvasSlice.reducer;
-export const { addElement, reorder } = canvasSlice.actions;
+export const { pushElement, insertElement, removeElement, reorder } =
+  canvasSlice.actions;

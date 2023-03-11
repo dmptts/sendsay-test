@@ -1,9 +1,10 @@
-import { PropsWithChildren, useRef } from 'react';
+import { PropsWithChildren, ReactNode, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import styled from 'styled-components';
 import { DnDItems } from '../const';
 import { useAppDispatch } from '../hooks/useAppDispatch';
-import { reorder } from '../store/canvasSlice';
+import { insertElement, removeElement, reorder } from '../store/canvasSlice';
+import Separator from './Separator';
 
 interface IConstructorElemProps {
   name: string;
@@ -19,9 +20,24 @@ export default function CanvasElement({
   const ref = useRef(null);
 
   const [collected, drop] = useDrop({
-    accept: DnDItems.CANVAS_ELEM,
-    drop: (item: { name: string; index: number }) => {
-      dispatch(reorder({ draggedIndex: item.index, droppedIndex: index }));
+    accept: [DnDItems.CANVAS_ELEM, DnDItems.PALETTE_ELEM],
+    drop: (
+      item: { name: string; children: ReactNode; index: number },
+      monitor
+    ) => {
+      if (monitor.getItemType() === DnDItems.PALETTE_ELEM) {
+        dispatch(
+          insertElement({
+            item: {
+              name: item.name,
+              children: item.children,
+            },
+            targetIndex: index,
+          })
+        );
+      } else {
+        dispatch(reorder({ draggedIndex: item.index, droppedIndex: index }));
+      }
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -35,10 +51,17 @@ export default function CanvasElement({
     },
   });
 
+  const handleDoubleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.detail === 2) {
+      dispatch(removeElement(index));
+    }
+  };
+
   drag(drop(ref));
 
   return (
-    <Root ref={ref} $isOver={collected.isOver}>
+    <Root ref={ref} $isOver={collected.isOver} onClick={handleDoubleClick}>
+      <StyledSeparator $isOver={collected.isOver} />
       {children}
     </Root>
   );
@@ -47,6 +70,8 @@ export default function CanvasElement({
 const Root = styled.div<{ $isOver: boolean }>`
   position: relative;
   width: 240px;
+`;
 
-  background-color: ${({ $isOver }) => ($isOver ? 'red' : 'lightgrey')};
+const StyledSeparator = styled(Separator)<{ $isOver: boolean }>`
+  display: ${({ $isOver }) => ($isOver ? 'block' : 'none')};
 `;

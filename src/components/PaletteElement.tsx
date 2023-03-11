@@ -28,6 +28,7 @@ export default function PaletteElement({
 }
 
 const Root = styled.div<{ $isUsed: boolean }>`
+  background-color: var(--color-default-white);
   border-radius: 6px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.06), 0px 4px 6px rgba(0, 0, 0, 0.1);
   ${({ $isUsed }) => $isUsed && 'opacity: 0.5;'}
