@@ -17,6 +17,7 @@ export default function CanvasElement({
 }: PropsWithChildren<IConstructorElemProps>) {
   const dispatch = useAppDispatch();
   const ref = useRef(null);
+
   const [collected, drop] = useDrop({
     accept: DnDItems.CANVAS_ELEM,
     drop: (item: { name: string; index: number }) => {
@@ -46,7 +47,6 @@ export default function CanvasElement({
 const Root = styled.div<{ $isOver: boolean }>`
   position: relative;
   width: 240px;
-  height: 60px;
 
   background-color: ${({ $isOver }) => ($isOver ? 'red' : 'lightgrey')};
 `;

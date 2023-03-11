@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { ReactNode } from 'react';
 
 interface IInitialState {
-  elements: { name: string }[];
+  elements: { name: string; children: ReactNode }[];
 }
 
 const initialState: IInitialState = {

@@ -1,12 +1,25 @@
 import styled from 'styled-components';
+import CalcButtonBlock from './CalcButtonBlock';
+import CalcDisplay from './CalcDisplay';
+import EqualButton from './CalcEqualBtn';
+import CalcOpeartorsBlock from './CalcOperatorsBlock';
 import PaletteElement from './PaletteElement';
 
 export default function Palette() {
   return (
     <Root>
-      <PaletteElement name={'calc-display'} />
-      <PaletteElement name={'calc-equal-btn'} />
-      <PaletteElement name={'calc-button-block'} />
+      <PaletteElement name={'calc-display'}>
+        <CalcDisplay />
+      </PaletteElement>
+      <PaletteElement name={'calc-operators-block'}>
+        <CalcOpeartorsBlock />
+      </PaletteElement>
+      <PaletteElement name={'calc-button-block'}>
+        <CalcButtonBlock />
+      </PaletteElement>
+      <PaletteElement name={'calc-equal-btn'}>
+        <EqualButton />
+      </PaletteElement>
     </Root>
   );
 }

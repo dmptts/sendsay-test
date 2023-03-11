@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react';
 import { useDrag } from 'react-dnd';
 import styled from 'styled-components';
 import { DnDItems } from '../const';
@@ -7,26 +8,27 @@ interface IElementProps {
   name: string;
 }
 
-export default function PaletteElement({ name }: IElementProps) {
+export default function PaletteElement({
+  children,
+  name,
+}: PropsWithChildren<IElementProps>) {
   const elements = useAppSelector((state) => state.canvas.elements);
   const isUsed = elements.findIndex((elem) => elem.name === name) >= 0;
 
   const [, drag] = useDrag(() => ({
     type: DnDItems.PALETTE_ELEM,
-    item: { name },
+    item: { name, children },
   }));
 
   return (
     <Root ref={!isUsed ? drag : null} $isUsed={isUsed}>
-      {name}
+      {children}
     </Root>
   );
 }
 
 const Root = styled.div<{ $isUsed: boolean }>`
-  width: 240px;
-  height: 60px;
-
-  background-color: lightgrey;
-  ${({ $isUsed }) => $isUsed && 'opacity: 0.5'}
+  border-radius: 6px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.06), 0px 4px 6px rgba(0, 0, 0, 0.1);
+  ${({ $isUsed }) => $isUsed && 'opacity: 0.5;'}
 `;

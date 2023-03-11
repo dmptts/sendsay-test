@@ -23,7 +23,7 @@ export default function Canvas() {
       {elements &&
         elements.map((elem, i) => (
           <CanvasElement name={elem.name} index={i} key={i}>
-            {elem.name}
+            {elem.children}
           </CanvasElement>
         ))}
     </Root>
