@@ -1,11 +1,11 @@
 import { PropsWithChildren } from 'react';
 import { useDrag } from 'react-dnd';
 import styled from 'styled-components';
-import { DnDItems } from '../const';
+import { CalcBlocks, DnDItems } from '../const';
 import { useAppSelector } from '../hooks/useAppSelector';
 
 interface IElementProps {
-  name: string;
+  name: CalcBlocks;
 }
 
 export default function PaletteElement({

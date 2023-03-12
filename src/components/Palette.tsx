@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { CalcBlocks } from '../const';
 import CalcDigitsBlock from './CalcDigitsBlock';
 import CalcDisplay from './CalcDisplay';
 import EqualButton from './CalcEqualBtn';
@@ -8,16 +9,16 @@ import PaletteElement from './PaletteElement';
 export default function Palette() {
   return (
     <Root>
-      <PaletteElement name={'calc-display'}>
+      <PaletteElement name={CalcBlocks.DISPLAY}>
         <CalcDisplay />
       </PaletteElement>
-      <PaletteElement name={'calc-operators-block'}>
+      <PaletteElement name={CalcBlocks.OPERATORS}>
         <CalcOpeartorsBlock />
       </PaletteElement>
-      <PaletteElement name={'calc-button-block'}>
+      <PaletteElement name={CalcBlocks.DIGITS}>
         <CalcDigitsBlock />
       </PaletteElement>
-      <PaletteElement name={'calc-equal-btn'}>
+      <PaletteElement name={CalcBlocks.EQUAL}>
         <EqualButton />
       </PaletteElement>
     </Root>

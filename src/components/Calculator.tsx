@@ -1,13 +1,9 @@
-import { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { useAppSelector } from '../hooks/useAppSelector';
-import CalcDisplay from './CalcDisplay';
-import CalcOpeartorsBlock from './CalcOperatorsBlock';
-import CalcDigitsBlock from './CalcDigitsBlock';
-import CalcEqualButton from './CalcEqualBtn';
-import { CalculatorOperations } from './../const';
+import { CalcBlocks, CalculatorOperations } from './../const';
 
 export default function Calculator() {
-  // const calcElements = useAppSelector((state) => state.canvas.elements);
+  const calcBlocks = useAppSelector((state) => state.canvas.elements);
   const [displayValue, setDisplayValue] = useState('0');
   const [prevValue, setPrevValue] = useState<number | null>(null);
   const [currentOperator, setCurrentOperator] = useState<
@@ -56,16 +52,40 @@ export default function Calculator() {
     }
   };
 
-  // return <div>{calcElements.map((elem) => elem.children)}</div>;
+  const renderCalcBlock = (block: {
+    name: CalcBlocks;
+    children: ReactElement;
+  }) => {
+    switch (block.name) {
+      case CalcBlocks.DISPLAY:
+        return React.cloneElement(block.children, {
+          displayValue,
+        });
+      case CalcBlocks.OPERATORS:
+        return React.cloneElement(block.children, {
+          handleButtonClick: handleOperatorButtonClick,
+        });
+      case CalcBlocks.DIGITS:
+        return React.cloneElement(block.children, {
+          handleDigitButtonClick,
+          handleDotButtonClick,
+        });
+      case CalcBlocks.EQUAL:
+        return React.cloneElement(block.children, {
+          handleEqualButtonClick,
+        });
+      default:
+        break;
+    }
+  };
+
   return (
-    <div>
-      <CalcDisplay displayValue={displayValue} />
-      <CalcOpeartorsBlock handleButtonClick={handleOperatorButtonClick} />
-      <CalcDigitsBlock
-        handleDigitButtonClick={handleDigitButtonClick}
-        handleDotButtonClick={handleDotButtonClick}
-      />
-      <CalcEqualButton handleEqualButtonClick={handleEqualButtonClick} />
-    </div>
+    <>
+      {calcBlocks.map((calcBlock) =>
+        renderCalcBlock(
+          calcBlock as { name: CalcBlocks; children: ReactElement }
+        )
+      )}
+    </>
   );
 }
