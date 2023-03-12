@@ -1,14 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit';
-import canvasSlice from './canvasSlice';
+import canvasReducer from './canvasSlice';
+import appModeReducer from './appModeSlice';
 
 const store = configureStore({
   reducer: {
-    canvas: canvasSlice,
+    canvas: canvasReducer,
+    appMode: appModeReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['canvas/addElement', 'canvas/replace'],
+        ignoredActions: [
+          'canvas/pushElement',
+          'canvas/insertElement',
+          'canvas/replace',
+        ],
         ignoredPaths: ['canvas.elements'],
       },
     }),
