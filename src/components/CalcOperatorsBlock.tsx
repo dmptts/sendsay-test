@@ -1,13 +1,20 @@
 import styled from 'styled-components';
+import { CalculatorOperations } from '../const';
 import CalcButton from './CalcButton';
 
-export default function CalcOpeartorsBlock() {
+interface ICalcOpeartorsBlockProps {
+  handleButtonClick?: (operator: keyof typeof CalculatorOperations) => void;
+}
+
+export default function CalcOpeartorsBlock({
+  handleButtonClick,
+}: ICalcOpeartorsBlockProps) {
   return (
     <Root>
-      <CalcButton>/</CalcButton>
-      <CalcButton>x</CalcButton>
-      <CalcButton>-</CalcButton>
-      <CalcButton>+</CalcButton>
+      <CalcButton onClick={() => handleButtonClick?.('/')}>/</CalcButton>
+      <CalcButton onClick={() => handleButtonClick?.('*')}>x</CalcButton>
+      <CalcButton onClick={() => handleButtonClick?.('-')}>-</CalcButton>
+      <CalcButton onClick={() => handleButtonClick?.('+')}>+</CalcButton>
     </Root>
   );
 }

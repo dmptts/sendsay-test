@@ -5,8 +5,14 @@ import Container from './components/Container';
 import Palette from './components/Palette';
 import Canvas from './components/Canvas';
 import AppModeToggler from './components/AppModeToggler';
+import { useAppSelector } from './hooks/useAppSelector';
+import { selectAppMode } from './store/selectors';
+import { AppModes } from './const';
+import Calculator from './components/Calculator';
 
 export default function App() {
+  const appMode = useAppSelector(selectAppMode);
+
   return (
     <DndProvider backend={HTML5Backend}>
       <div className="App">
@@ -14,7 +20,7 @@ export default function App() {
           <Palette />
           <div>
             <AppModeToggler />
-            <Canvas />
+            {appMode === AppModes.CONSTRUCTOR ? <Canvas /> : <Calculator />}
           </div>
         </StyledContainer>
       </div>

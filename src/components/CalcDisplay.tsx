@@ -1,9 +1,17 @@
 import styled from 'styled-components';
+import { AppModes } from '../const';
+import { useAppSelector } from '../hooks/useAppSelector';
+import { selectAppMode } from '../store/selectors';
 
-export default function CalcDisplay() {
+interface ICalcDisplayProps {
+  displayValue?: string;
+}
+
+export default function CalcDisplay({ displayValue }: ICalcDisplayProps) {
+  const appMode = useAppSelector(selectAppMode);
   return (
     <Root>
-      <Display>0</Display>
+      <Display>{appMode === AppModes.RUNTIME ? displayValue : '0'}</Display>
     </Root>
   );
 }

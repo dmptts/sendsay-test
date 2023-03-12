@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 import CalcButton from './CalcButton';
 
-export default function EqualButton() {
+interface ICalcEqualButtonProps {
+  handleEqualButtonClick?: () => void;
+}
+
+export default function CalcEqualButton({
+  handleEqualButtonClick,
+}: ICalcEqualButtonProps) {
   return (
     <Root>
-      <StyledEqualButton>=</StyledEqualButton>
+      <StyledEqualButton onClick={() => handleEqualButtonClick?.()}>
+        =
+      </StyledEqualButton>
     </Root>
   );
 }

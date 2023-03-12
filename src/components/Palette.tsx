@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import CalcButtonBlock from './CalcButtonBlock';
+import CalcDigitsBlock from './CalcDigitsBlock';
 import CalcDisplay from './CalcDisplay';
 import EqualButton from './CalcEqualBtn';
 import CalcOpeartorsBlock from './CalcOperatorsBlock';
@@ -15,7 +15,7 @@ export default function Palette() {
         <CalcOpeartorsBlock />
       </PaletteElement>
       <PaletteElement name={'calc-button-block'}>
-        <CalcButtonBlock />
+        <CalcDigitsBlock />
       </PaletteElement>
       <PaletteElement name={'calc-equal-btn'}>
         <EqualButton />

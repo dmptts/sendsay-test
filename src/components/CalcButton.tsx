@@ -1,7 +1,7 @@
-import { PropsWithChildren } from 'react';
+import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
-interface ICalcButtonProps {
+interface ICalcButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   width?: number;
   height?: number;
@@ -12,9 +12,16 @@ export default function CalcButton({
   className,
   width = 1,
   height = 1,
+  ...rest
 }: PropsWithChildren<ICalcButtonProps>) {
   return (
-    <Root type="button" $width={width} $height={height} className={className}>
+    <Root
+      type="button"
+      $width={width}
+      $height={height}
+      className={className}
+      {...rest}
+    >
       {children}
     </Root>
   );
