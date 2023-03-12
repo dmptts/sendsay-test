@@ -8,12 +8,16 @@ import { useAppSelector } from '../hooks/useAppSelector';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { changeMode } from '../store/appModeSlice';
 
-export default function AppModeToggler() {
+interface IAppModeTogglerProps {
+  className?: string;
+}
+
+export default function AppModeToggler({ className }: IAppModeTogglerProps) {
   const dispatch = useAppDispatch();
   const appMode = useAppSelector((state) => state.appMode.mode);
 
   return (
-    <Toggler defaultValue={appMode}>
+    <Toggler defaultValue={appMode} className={className}>
       <ToggleButton
         value={AppModes.RUNTIME}
         callback={() => dispatch(changeMode(AppModes.RUNTIME))}

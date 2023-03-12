@@ -69,7 +69,7 @@ export default function CanvasElement({
 
 const Root = styled.div<{ $isOver: boolean }>`
   position: relative;
-  width: 240px;
+  width: 243px;
 `;
 
 const StyledSeparator = styled(Separator)<{ $isOver: boolean }>`

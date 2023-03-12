@@ -9,7 +9,11 @@ import CanvasElement from './CanvasElement';
 import CanvasPlaceholder from './CanvasPlaceholder';
 import Separator from './Separator';
 
-export default function Canvas() {
+interface ICanvasProps {
+  className?: string;
+}
+
+export default function Canvas({ className }: ICanvasProps) {
   const dispatch = useAppDispatch();
   const elements = useAppSelector((state) => state.canvas.elements);
   const isEmpty = elements.length < 1;
@@ -28,7 +32,12 @@ export default function Canvas() {
   }));
 
   return (
-    <Root ref={drop} $canDrop={collected.canDrop} $isEmpty={isEmpty}>
+    <Root
+      ref={drop}
+      $canDrop={collected.canDrop}
+      $isEmpty={isEmpty}
+      className={className}
+    >
       {elements.length > 0 ? (
         <>
           <Wrapper>
@@ -56,7 +65,7 @@ const Root = styled.div<{ $canDrop: boolean; $isEmpty: boolean }>`
   row-gap: 10px;
 
   width: 243px;
-  height: 448px;
+  height: 100%;
 
   ${({ $canDrop, $isEmpty }) =>
     $canDrop && $isEmpty && 'background-color: #f0f9ff;'};

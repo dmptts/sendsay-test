@@ -17,11 +17,16 @@ export default function App() {
     <DndProvider backend={HTML5Backend}>
       <div className="App">
         <StyledContainer>
-          <Palette />
-          <div>
-            <AppModeToggler />
-            {appMode === AppModes.CONSTRUCTOR ? <Canvas /> : <Calculator />}
-          </div>
+          <PaletteContainer>
+            {appMode === AppModes.CONSTRUCTOR && <Palette />}
+          </PaletteContainer>
+
+          <StyledAppModeToggler />
+          {appMode === AppModes.CONSTRUCTOR ? (
+            <StyledCanvas />
+          ) : (
+            <StyledCalculator />
+          )}
         </StyledContainer>
       </div>
     </DndProvider>
@@ -29,14 +34,30 @@ export default function App() {
 }
 
 const StyledContainer = styled(Container)`
-  /* display: grid;
+  display: grid;
   grid-template-columns: repeat(2, 1fr);
   row-gap: 30px;
-  column-gap: 56px; */
-  display: flex;
-
   column-gap: 56px;
 
   padding-top: 38px;
   padding-bottom: 86px;
+`;
+
+const PaletteContainer = styled.div`
+  grid-row: 2;
+`;
+
+const StyledAppModeToggler = styled(AppModeToggler)`
+  grid-column: 2;
+  grid-row: 1;
+`;
+
+const StyledCanvas = styled(Canvas)`
+  grid-column: 2;
+  grid-row: 2;
+`;
+
+const StyledCalculator = styled(Calculator)`
+  grid-column: 2;
+  grid-row: 2;
 `;

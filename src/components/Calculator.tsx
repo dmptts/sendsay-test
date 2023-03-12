@@ -1,8 +1,13 @@
 import React, { ReactElement, useState } from 'react';
+import styled from 'styled-components';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { CalcBlocks, CalculatorOperations } from './../const';
 
-export default function Calculator() {
+interface ICalculatorProps {
+  className?: string;
+}
+
+export default function Calculator({ className }: ICalculatorProps) {
   const calcBlocks = useAppSelector((state) => state.canvas.elements);
   const [displayValue, setDisplayValue] = useState('0');
   const [prevValue, setPrevValue] = useState<number | null>(null);
@@ -80,12 +85,16 @@ export default function Calculator() {
   };
 
   return (
-    <>
+    <Root className={className}>
       {calcBlocks.map((calcBlock) =>
         renderCalcBlock(
           calcBlock as { name: CalcBlocks; children: ReactElement }
         )
       )}
-    </>
+    </Root>
   );
 }
+
+const Root = styled.div`
+  width: 243px;
+`;
